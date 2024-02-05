@@ -532,7 +532,7 @@ namespace QLTS.Tool_Khao_Sat
                         colIndex = 1;
                         foreach (JProperty property in jsonObject.Properties())
                         {
-                            worksheet.Cell(rowIndex, colIndex++).Value = property.Value.ToString();
+                            worksheet.Cell(rowIndex, colIndex++).Value = GetValueExcel(property.Value.ToString());
                         }
                         rowIndex++;
                     }
@@ -543,6 +543,19 @@ namespace QLTS.Tool_Khao_Sat
             }
         }
 
+        private XLCellValue GetValueExcel(string value)
+        {
+            try
+            {
+                return decimal.Parse(value);
+            }
+            catch (Exception)
+            {
+            }
+
+            return value;
+        }
+        
         private async Task RunScript(Tenant tenant, List<string> listScript)
         {
             int index = 1;
